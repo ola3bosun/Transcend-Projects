@@ -48,7 +48,7 @@ export default function ScrambleLink({href, text, className}: ScrambleLinkProps)
     };
 
     return(
-        <span 
+        <Link
             href = {href}
             className = {className}
             onMouseEnter = {handleMouseEnter}
@@ -59,6 +59,6 @@ export default function ScrambleLink({href, text, className}: ScrambleLinkProps)
             }}
         >
             {displayText}
-        </span>
+        </Link>
     );
 }

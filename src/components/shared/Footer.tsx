@@ -19,8 +19,8 @@ export function Footer() {
           </div>
           
           <div className="flex flex-col gap-1 text-gray-500 text-xs uppercase tracking-wider">
-            <span><ScrambleLink text="PROJECT_COMMAND_CENTER_V2.0" /></span>
-            <span><ScrambleLink text="SYSTEMS_SECURED_SSL"/></span>
+            <span><ScrambleLink text="PROJECT_COMMAND_CENTER_V2.0" href="#"/></span>
+            <span><ScrambleLink text="SYSTEMS_SECURED_SSL" href="#"/></span>
           </div>
         </div>
 
@@ -30,7 +30,7 @@ export function Footer() {
             OFFICE_LOC
           </span>
           <div className="text-gray-500 flex flex-col leading-relaxed whitespace-pre-wrap">
-            <ScrambleLink text={`${location}`} className="text-gray-500" />
+            <ScrambleLink text={`${location}`} className="text-gray-500" href="#" />
           </div>
           
           <div className="w-full max-w-[250px] h-20 bg-foreground/5 relative mt-2 overflow-hidden border border-foreground/20 grayscale opacity-80 hover:opacity-100 transition-opacity">
