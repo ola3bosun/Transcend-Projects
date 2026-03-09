@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fafafa;
+  --foreground: #000000;
+  --curtain: #000000;
+}
+
+.dark {
+  --background: #000000;
+  --foreground: #fafafa;
+  --curtain: #fafafa;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-curtain: var(--curtain);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.nav-link {
+  position: relative;
+  text-decoration: none;
+  color: var(--foreground);
+}
+
+.nav-link::after {
+  content: ' \2588'; /* Unicode for a solid block █ */
+  opacity: 0;
+  /* background-color: var(--foreground); */
+}
+
+.nav-link:hover::after {
+  opacity: 1;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.location {
+  white-space: pre-line;
+}
+
+/* Only hide the cursor on devices with a physical mouse */
+@media (pointer: fine) {
+  body, a, button, input, textarea {
+    cursor: none !important;
+  }
+}
