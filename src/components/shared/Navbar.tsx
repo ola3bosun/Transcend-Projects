@@ -111,7 +111,7 @@ export function Navbar() {
       <div className="flex justify-between items-center py-4 px-6 border-b border-foreground bg-background relative z-50">
         <div className="flex flex-col gap-1">
           <span className="font-bold system-text text-foreground">
-            <ScrambleLink text="Transcend Projects" href="https://transcend.com" />
+            <ScrambleLink text="Transcend Projects" href="/" />
           </span>
           <span className="text-gray-500 text-xs system-text hidden md:block">
             System_Version: 2.0.4 // Localhost
@@ -221,7 +221,7 @@ export function Navbar() {
         <div className="flex flex-col px-6 mt-12 mb-16 space-y-8 text-5xl font-bold tracking-tight">
           <div className="overflow-hidden border-b border-gray-200/20 pb-2">
             <TransitionLink
-              href="/work"
+              href="/selected_work"
               className="text-foreground mobile-link block hover:opacity-50"
               onClick={() => setIsMobileMenuOpen(false)}
             >
@@ -230,7 +230,7 @@ export function Navbar() {
           </div>
           <div className="overflow-hidden border-b border-gray-200/20 pb-2">
             <TransitionLink
-              href="/methodology"
+              href="/process"
               className="text-foreground mobile-link block hover:opacity-50 leading-[1.1]"
               onClick={() => setIsMobileMenuOpen(false)}
             >

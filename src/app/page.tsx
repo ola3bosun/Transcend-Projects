@@ -4,7 +4,7 @@ import { TransitionLink } from "@/components/ui/TransitionLink";
 
 export default function Home() {
   return (
-    <div className="min-h-screen pt-24 pb-20 px-6 md:px-12 flex flex-col w-full max-w-[1600px] mx-auto transition-colors duration-300">
+    <div className="min-h-screen pt-16 pb-20 px-6 md:px-12 flex flex-col w-full max-w-[1600px] mx-auto transition-colors duration-300">
       
       {/* 1. HERO SECTION */}
       {/* Wrapped in a master border box */}
@@ -18,11 +18,11 @@ export default function Home() {
             <span className="text-foreground">REF: CORE_ASSET_01</span>
           </div>
 
-          <h1 className="text-6xl md:text-8xl lg:text-[7.5rem] font-black tracking-tighter text-foreground leading-[0.85] mb-8">
+          <h1 className="text-6xl md:text-8xl lg:text-[5rem] font-black tracking-tighter text-foreground leading-[0.85] mb-8">
             Engineering the<br />Essential.
           </h1>
 
-          <p className="font-mono text-xs md:text-sm text-gray-500 leading-relaxed max-w-md mb-24">
+          <p className="font-mono text-xs md:text-sm text-gray-500 leading-relaxed max-w-md mb-12">
             We strip away the superfluous to reveal the enduring. A synthesis of form, function, and physics.
           </p>
 
@@ -45,10 +45,10 @@ export default function Home() {
             
             {/* Absolute positioned floating tags */}
             <div className="absolute top-4 left-4 bg-background border border-foreground/20 px-3 py-1.5 z-10">
-              <span className="text-[8px] font-mono font-bold tracking-widest text-foreground uppercase">VISUAL_FEED_01</span>
+              <span className="text-[10px] font-mono font-bold tracking-widest text-foreground uppercase">VISUAL_FEED_01</span>
             </div>
             <div className="absolute top-4 right-4 bg-background border border-foreground/20 px-3 py-1.5 z-10">
-              <span className="text-[8px] font-mono font-bold tracking-widest text-foreground uppercase">CAM: BRUTALIST_EXT</span>
+              <span className="text-[10px] font-mono font-bold tracking-widest text-foreground uppercase">CAM: BRUTALIST_EXT</span>
             </div>
             
             <div className="absolute inset-0 flex items-center justify-center text-gray-400 font-mono text-xs tracking-widest uppercase">
