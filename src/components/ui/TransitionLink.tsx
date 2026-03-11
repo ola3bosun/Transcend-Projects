@@ -20,11 +20,13 @@ export function TransitionLink({ href, children, className, onClick }: Props) {
     if (pathname === href) return;
 
     // DROP: Pull the current page's curtain down from the ceiling
+    document.body.style.pointerEvents = "none";
     gsap.to(".global-curtain", {
       y: "100dvh", 
       duration: 0.8,
       ease: "power4.inOut",
       onComplete: () => {
+        document.body.style.pointerEvents = "auto";
         router.push(href);
       }
     });

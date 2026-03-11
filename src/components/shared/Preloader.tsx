@@ -21,7 +21,7 @@ export function Preloader() {
   }, []);
 
   useGSAP(() => {
-    // 2. Abort the animation if they shouldn't see it
+    // 2. Abort the animation so they don't see it all over
     if (!isMounted || !shouldShow || !containerRef.current) return;
 
     document.body.style.overflow = "hidden";
@@ -31,7 +31,7 @@ export function Preloader() {
         document.body.style.overflow = "auto";
         if (containerRef.current) containerRef.current.style.display = "none";
         
-        // 3. Write the flag to storage as soon as the animation finishes
+        // 3. Flag to storage as soon as the animation finishes
         sessionStorage.setItem("transcend_preloader_played", "true");
       }
     });
@@ -65,7 +65,7 @@ export function Preloader() {
 
   }, [isMounted, shouldShow]);
 
-  // 4. Instantly return null if they've already seen it, bypassing the render entirely
+  // 4. Instantly return null if they've already seen it
   if (!isMounted || !shouldShow) return null;
 
   return (
