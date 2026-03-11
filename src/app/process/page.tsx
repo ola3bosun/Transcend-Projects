@@ -9,7 +9,7 @@ export default function ProcessPage() {
         <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-gray-400 mb-6 block">
           03 // Methodology
         </span>
-        <h1 className="text-5xl md:text-8xl lg:text-[6.5rem] font-bold tracking-tight text-foreground leading-none">
+        <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-bold tracking-tight text-foreground leading-none">
           Form is<br />Function.
         </h1>
       </div>
@@ -85,7 +85,7 @@ export default function ProcessPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-32 border-t border-foreground/20 pt-16">
         
         {/* Card 1 */}
-        <div className="border border-foreground/20 p-8 flex flex-col group hover:bg-foreground/5 transition-colors duration-300">
+        <div className="border border-foreground/20 p-8 flex flex-col group">
           <svg className="w-6 h-6 mb-8 text-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M4 8h16M4 16h16M8 4v16M16 4v16" strokeLinecap="round" />
           </svg>
@@ -94,7 +94,7 @@ export default function ProcessPage() {
         </div>
 
         {/* Card 2 */}
-        <div className="border border-foreground/20 p-8 flex flex-col group hover:bg-foreground/5 transition-colors duration-300">
+        <div className="border border-foreground/20 p-8 flex flex-col group">
           <svg className="w-6 h-6 mb-8 text-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <circle cx="12" cy="18" r="3" />
             <path d="M12 15V9M9 6h6M12 9L9 6" strokeLinecap="round" strokeLinejoin="round" />
@@ -105,7 +105,7 @@ export default function ProcessPage() {
         </div>
 
         {/* Card 3 */}
-        <div className="border border-foreground/20 p-8 flex flex-col group hover:bg-foreground/5 transition-colors duration-300">
+        <div className="border border-foreground/20 p-8 flex flex-col group">
           <svg className="w-6 h-6 mb-8 text-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
@@ -114,7 +114,7 @@ export default function ProcessPage() {
         </div>
 
         {/* Card 4 */}
-        <div className="border border-foreground/20 p-8 flex flex-col group hover:bg-foreground/5 transition-colors duration-300">
+        <div className="border border-foreground/20 p-8 flex flex-col group">
           <svg className="w-6 h-6 mb-8 text-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" strokeLinecap="round" strokeLinejoin="round" />
             <path d="M9 12l2 2 4-4" strokeLinecap="round" strokeLinejoin="round" />

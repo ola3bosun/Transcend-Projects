@@ -80,7 +80,7 @@ export function Preloader() {
       <div className="relative z-10 p-6 md:p-12 flex justify-end w-full">
         <span
           ref={percentRef}
-          className="text-[15vw] leading-none font-black tracking-tighter mix-blend-difference text-foreground select-none font-mono"
+          className="text-[15vw] leading-none font-black tracking-tighter mix-blend-difference text-white select-none font-mono"
         >
           0
         </span>
