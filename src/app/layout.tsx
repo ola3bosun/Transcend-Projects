@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Preloader } from "@/components/shared/Preloader";
 import { CustomCursor } from "@/components/shared/CustomCursor";
 import { ThemeProvider } from "@/components/shared/ThemeProvider";
 import { Navbar } from "@/components/shared/Navbar";
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}>
         <ThemeProvider>
+          <Preloader />
           <CustomCursor />
           <Navbar />
           <main className="flex-1 w-full">{children}</main>

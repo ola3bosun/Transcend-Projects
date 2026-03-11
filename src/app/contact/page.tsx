@@ -2,11 +2,11 @@
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen pt-16 pb-16 px-6 md:px-12 flex flex-col w-full max-w-[1600px] mx-auto transition-colors duration-300">
+    <div className="min-h-screen pt-16 px-6 md:px-12 flex flex-col w-full max-w-[1600px] mx-auto transition-colors duration-300">
       
       {/* HEADER SECTION */}
       <div className="mb-20 md:mb-32">
-        <h1 className="text-6xl md:text-8xl font-bold tracking-tight mb-6 text-foreground">
+        <h1 className="text-6xl md:text-8xl font-mono tracking-tight mb-3 text-foreground">
           Contact
         </h1>
         <p className="text-gray-500 max-w-xl text-lg md:text-xl leading-relaxed">
@@ -20,32 +20,31 @@ export default function ContactPage() {
         
         {/* COLUMN 1: INQUIRIES */}
         <div className="flex flex-col h-full md:pr-12">
-          <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-gray-400 mb-12">
+          <span className="text-[12px] font-mono font-bold uppercase tracking-widest text-gray-400 mb-12">
             Inquiries
           </span>
 
           <div className="flex flex-col gap-10 flex-1">
             <div>
-              <p className="text-xs text-gray-500 mb-2 font-mono">Email</p>
+              <p className="text-xl font-bold mb-4 text-foreground">Email</p>
               <a 
                 href="mailto:hello@transcend.com" 
-                className="text-xl md:text-2xl font-bold text-foreground hover:opacity-50 transition-opacity"
+                className="text-gray-500 mb-1"
               >
                 hello@transcend.com
               </a>
             </div>
             <div>
-              <p className="text-xs text-gray-500 mb-2 font-mono">Phone</p>
+              <p className="text-xl font-bold mb-4 text-foreground">Phone</p>
               <a 
                 href="tel:+2348001234567" 
-                className="text-xl md:text-2xl font-bold text-foreground hover:opacity-50 transition-opacity"
+                className="text-gray-500 mb-1"
               >
-                +234 800 123 4567
+                +234 810 912 2015
               </a>
             </div>
           </div>
 
-          {/* Typography Social Links matching the Footer */}
           <div className="flex gap-6 font-bold uppercase mt-16 md:mt-auto font-mono text-sm text-foreground">
             <a href="#" className="hover:opacity-50 transition-opacity">LN</a>
             <a href="#" className="hover:opacity-50 transition-opacity">IG</a>
@@ -56,14 +55,14 @@ export default function ContactPage() {
         {/* COLUMN 2: OFFICES */}
         {/* Vertical borders added here specifically for desktop */}
         <div className="flex flex-col md:border-x border-foreground/20 md:px-12">
-          <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-gray-400 mb-12">
+          <span className="text-[12px] font-mono font-bold uppercase tracking-widest text-gray-400 mb-12">
             Offices
           </span>
 
           <div className="flex flex-col gap-12">
             <div>
-              <h3 className="text-xl font-bold mb-4 text-foreground">Lagos</h3>
-              <p className="text-gray-500 mb-1">14B Karimu Kotun, VI</p>
+              <h3 className="text-xl font-bold mb-4 text-foreground">NG</h3>
+              <p className="text-gray-500 mb-1">1085, Victoria Island</p>
               <p className="text-gray-500 mb-4">Lagos, Nigeria</p>
               <p className="text-[10px] font-mono tracking-widest text-gray-400 uppercase">
                 6.4253° N, 3.4219° E
@@ -71,9 +70,9 @@ export default function ContactPage() {
             </div>
             
             <div>
-              <h3 className="text-xl font-bold mb-4 text-foreground">Abuja</h3>
-              <p className="text-gray-500 mb-1">24 Aguiyi Ironsi, Maitama</p>
-              <p className="text-gray-500 mb-4">Abuja, Nigeria</p>
+              <h3 className="text-xl font-bold mb-4 text-foreground">UK</h3>
+              <p className="text-gray-500 mb-1">123 Oxford Street</p>
+              <p className="text-gray-500 mb-4">London, United Kingdom</p>
               <p className="text-[10px] font-mono tracking-widest text-gray-400 uppercase">
                 9.0765° N, 7.3986° E
               </p>

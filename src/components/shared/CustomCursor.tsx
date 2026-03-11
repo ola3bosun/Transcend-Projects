@@ -1,96 +1,188 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { usePathname } from "next/navigation";
+import React, { useEffect, useRef, RefObject } from 'react';
+import { gsap } from 'gsap';
 
-export function CustomCursor() {
-  const cursorRef = useRef<HTMLDivElement>(null);
-  const dotRef = useRef<HTMLDivElement>(null);
-  const [isDesktop, setIsDesktop] = useState(false);
-  const pathname = usePathname();
+const lerp = (a: number, b: number, n: number): number => (1 - n) * a + n * b;
 
-  // 1. Detect if the user is on a mouse-driven device
-  useEffect(() => {
-    if (window.matchMedia("(pointer: fine)").matches) {
-      setIsDesktop(true);
-    }
-  }, []);
-
-  useGSAP(() => {
-    if (!isDesktop || !cursorRef.current || !dotRef.current) return;
-
-    // 2. High-Performance GSAP Tracking
-    // quickTo bypasses the standard GSAP ticker for zero-latency tracking
-    const xMoveCursor = gsap.quickTo(cursorRef.current, "x", { duration: 0.15, ease: "power3.out" });
-    const yMoveCursor = gsap.quickTo(cursorRef.current, "y", { duration: 0.15, ease: "power3.out" });
-    
-    const xMoveDot = gsap.quickTo(dotRef.current, "x", { duration: 0, ease: "none" });
-    const yMoveDot = gsap.quickTo(dotRef.current, "y", { duration: 0, ease: "none" });
-
-    const moveCursor = (e: MouseEvent) => {
-      xMoveCursor(e.clientX);
-      yMoveCursor(e.clientY);
-      xMoveDot(e.clientX);
-      yMoveDot(e.clientY);
+const getMousePos = (e: Event, container?: HTMLElement | null): { x: number; y: number } => {
+  const mouseEvent = e as MouseEvent;
+  if (container) {
+    const bounds = container.getBoundingClientRect();
+    return {
+      x: mouseEvent.clientX - bounds.left,
+      y: mouseEvent.clientY - bounds.top
     };
+  }
+  return { x: mouseEvent.clientX, y: mouseEvent.clientY };
+};
 
-    window.addEventListener("mousemove", moveCursor);
+interface CrosshairProps {
+  color?: string;
+  containerRef?: RefObject<HTMLElement>;
+}
 
-    // 3. Hover Interaction Logic
-    const handleMouseOver = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      
-      // If hovering over anything clickable
-      if (target.closest("a, button, input, textarea")) {
-        gsap.to(cursorRef.current, { 
-          scale: 0.8, 
-          rotation: 45, // Turns the square into a diamond
-          duration: 0.3, 
-          ease: "power4.out" 
-        });
-        gsap.to(dotRef.current, { 
-          opacity: 0, 
-          duration: 0.2 
-        });
-      } else {
-        // Revert to default state
-        gsap.to(cursorRef.current, { 
-          scale: 1, 
-          rotation: 0, // Back to square orientation
-          duration: 0.3, 
-          ease: "power4.out" 
-        });
-        gsap.to(dotRef.current, { 
-          opacity: 1, 
-          duration: 0.2 
-        });
+export const CustomCursor: React.FC<CrosshairProps> = ({ color = 'white', containerRef = null }) => {
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const lineHorizontalRef = useRef<HTMLDivElement>(null);
+  const lineVerticalRef = useRef<HTMLDivElement>(null);
+  const filterXRef = useRef<SVGFETurbulenceElement>(null);
+  const filterYRef = useRef<SVGFETurbulenceElement>(null);
+
+  let mouse = { x: 0, y: 0 };
+
+  useEffect(() => {
+    // Only run on desktop devices to prevent mobile touch-target bugs
+    if (!window.matchMedia("(pointer: fine)").matches) return;
+
+    let rafId: number; // Added to prevent memory leaks
+
+    const handleMouseMove = (ev: Event) => {
+      const mouseEvent = ev as MouseEvent;
+      mouse = getMousePos(mouseEvent, containerRef?.current);
+      if (containerRef?.current) {
+        const bounds = containerRef.current.getBoundingClientRect();
+        if (
+          mouseEvent.clientX < bounds.left || mouseEvent.clientX > bounds.right ||
+          mouseEvent.clientY < bounds.top || mouseEvent.clientY > bounds.bottom
+        ) {
+          gsap.to([lineHorizontalRef.current, lineVerticalRef.current].filter(Boolean), { opacity: 0 });
+        } else {
+          gsap.to([lineHorizontalRef.current, lineVerticalRef.current].filter(Boolean), { opacity: 1 });
+        }
       }
     };
 
-    window.addEventListener("mouseover", handleMouseOver);
+    const target: HTMLElement | Window = containerRef?.current || window;
+    target.addEventListener('mousemove', handleMouseMove);
+
+    const renderedStyles: { [key: string]: { previous: number; current: number; amt: number } } = {
+      tx: { previous: 0, current: 0, amt: 0.15 },
+      ty: { previous: 0, current: 0, amt: 0.15 }
+    };
+
+    gsap.set([lineHorizontalRef.current, lineVerticalRef.current].filter(Boolean), { opacity: 0 });
+
+    const onMouseMove = (_ev: Event) => {
+      renderedStyles.tx.previous = renderedStyles.tx.current = mouse.x;
+      renderedStyles.ty.previous = renderedStyles.ty.current = mouse.y;
+
+      gsap.to([lineHorizontalRef.current, lineVerticalRef.current].filter(Boolean), {
+        duration: 0.9,
+        ease: 'power3.out',
+        opacity: 1
+      });
+
+      rafId = requestAnimationFrame(render);
+      target.removeEventListener('mousemove', onMouseMove);
+    };
+
+    target.addEventListener('mousemove', onMouseMove);
+
+    const primitiveValues = { turbulence: 0 };
+
+    const tl = gsap.timeline({
+      paused: true,
+      onStart: () => {
+        if (lineHorizontalRef.current) lineHorizontalRef.current.style.filter = 'url(#filter-noise-x)';
+        if (lineVerticalRef.current) lineVerticalRef.current.style.filter = 'url(#filter-noise-y)';
+      },
+      onUpdate: () => {
+        if (filterXRef.current && filterYRef.current) {
+          filterXRef.current.setAttribute('baseFrequency', primitiveValues.turbulence.toString());
+          filterYRef.current.setAttribute('baseFrequency', primitiveValues.turbulence.toString());
+        }
+      }
+    }).to(primitiveValues, {
+      duration: 0.04, // Hyper-fast oscillation (40ms)
+      startAt: { turbulence: 0.05 }, // Base level of static
+      turbulence: 0.9, // Peak static distortion
+      repeat: -1, // INFINITE LOOP
+      yoyo: true, // Bounce rapidly back and forth between 0.05 and 0.9
+      ease: 'none' // Linear easing for a harsh, mechanical feel
+    });
+
+    const enter = () => tl.restart();
+    
+    const leave = () => {
+      tl.pause(); // Hard-stop the infinite glitch
+      
+      // Instantly wipe the filters so the crosshair snaps back to a razor-sharp 1px line
+      if (lineHorizontalRef.current && lineVerticalRef.current) {
+        lineHorizontalRef.current.style.filter = 'none';
+        lineVerticalRef.current.style.filter = 'none';
+      }
+      // Reset the turbulence values for the next hover
+      if (filterXRef.current && filterYRef.current) {
+        filterXRef.current.setAttribute('baseFrequency', '0.000001');
+        filterYRef.current.setAttribute('baseFrequency', '0.000001');
+      }
+    };
+
+    const render = () => {
+      renderedStyles.tx.current = mouse.x;
+      renderedStyles.ty.current = mouse.y;
+
+      for (const key in renderedStyles) {
+        const style = renderedStyles[key];
+        style.previous = lerp(style.previous, style.current, style.amt);
+      }
+
+      if (lineHorizontalRef.current && lineVerticalRef.current) {
+        gsap.set(lineVerticalRef.current, { x: renderedStyles.tx.previous });
+        gsap.set(lineHorizontalRef.current, { y: renderedStyles.ty.previous });
+      }
+
+      rafId = requestAnimationFrame(render);
+    };
+
+    // Use event delegation so it works with Next.js dynamic routing
+    const handleMouseOver = (e: MouseEvent) => {
+      const el = e.target as HTMLElement;
+      if (el.closest('a, button')) {
+        enter();
+      } else {
+        leave();
+      }
+    };
+
+    document.addEventListener('mouseover', handleMouseOver);
 
     return () => {
-      window.removeEventListener("mousemove", moveCursor);
-      window.removeEventListener("mouseover", handleMouseOver);
+      target.removeEventListener('mousemove', handleMouseMove);
+      target.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseover', handleMouseOver);
+      cancelAnimationFrame(rafId);
     };
-  }, [isDesktop, pathname]); // Re-run logic if route changes 
-
-  if (!isDesktop) return null;
+  }, [containerRef]);
 
   return (
-    <>
-      <div 
-        ref={cursorRef} 
-        className="fixed top-0 left-0 w-8 h-8 border border-white pointer-events-none z-[9999] mix-blend-difference -translate-x-1/2 -translate-y-1/2 will-change-transform backdrop-blur-xs"
-      />
-      
-      {/* Inner Precision Dot */}
-      <div 
-        ref={dotRef} 
-        className="fixed top-0 left-0 w-1.5 h-1.5 bg-white pointer-events-none z-[9999] mix-blend-difference -translate-x-1/2 -translate-y-1/2 will-change-transform"
-      />
-    </>
+    <div
+      ref={cursorRef}
+      className={`${containerRef ? 'absolute' : 'fixed'} top-0 left-0 w-full h-full pointer-events-none z-[10000] mix-blend-difference`}
+    >
+      <svg className="absolute top-0 left-0 w-full h-full pointer-events-none">
+        <defs>
+          <filter id="filter-noise-x">
+            <feTurbulence type="fractalNoise" baseFrequency="0.000001" numOctaves="1" ref={filterXRef} />
+            <feDisplacementMap in="SourceGraphic" scale="20" />
+          </filter>
+          <filter id="filter-noise-y">
+            <feTurbulence type="fractalNoise" baseFrequency="0.000001" numOctaves="1" ref={filterYRef} />
+            <feDisplacementMap in="SourceGraphic" scale="20" />
+          </filter>
+        </defs>
+      </svg>
+      <div
+        ref={lineHorizontalRef}
+        className={`absolute w-full h-px pointer-events-none opacity-0 transform -translate-y-1/2`}
+        style={{ background: color }}
+      ></div>
+      <div
+        ref={lineVerticalRef}
+        className={`absolute h-full w-px pointer-events-none opacity-0 transform -translate-x-1/2`}
+        style={{ background: color }}
+      ></div>
+    </div>
   );
-}
+};

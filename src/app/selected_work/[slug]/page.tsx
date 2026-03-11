@@ -2,20 +2,21 @@
 
 import { useParams } from "next/navigation";
 import { TransitionLink } from "@/components/ui/TransitionLink";
+import ScrambleLink from "@/components/shared/ScrambleLink";
 
 // 1. THE DATABASE
 // In production, this would be moved to a separate file or fetched from a CMS like Sanity.
 const projectDatabase = [
   {
     slug: "nexus-tower",
-    meta: "[PRJ-001] — NEW YORK, NY // 2026",
+    meta: "[PRJ-001] — IBADAN, NG // 2026",
     title: "The Diyaolu Tower",
     specs: [
       { label: "HEIGHT", value: "420m", icon: "wave" },
       { label: "STRUCTURAL CORE", value: "Steel-RC", icon: "grid" },
       { label: "WIND LOAD RATIO", value: "0.85", icon: "power" }
     ],
-    brief: "Designed to anchor the Manhattan skyline, Nexus Tower demanded a structural footprint that minimized ground-level disruption while maximizing vertical load-bearing capacity.",
+    brief: "Designed to standout in the brown roof city skyline, Diyaolu Tower demanded a structural footprint that minimized ground-level disruption while maximizing vertical load-bearing capacity.",
     execution: "We implemented a tuned mass damper system hidden within the crown, allowing the incredibly slender profile to withstand extreme crosswinds without compromising the glass curtain wall."
   },
   {
@@ -57,14 +58,17 @@ export default function ProjectPage() {
   if (!project) return null;
 
   return (
-    <div className="min-h-screen pt-32 pb-32 px-6 md:px-12 flex flex-col w-full max-w-[1600px] mx-auto transition-colors duration-300">
+    <div className="min-h-screen pt-16 pb-32 px-6 md:px-12 flex flex-col w-full max-w-[1600px] mx-auto transition-colors duration-300">
       
       {/* 1. PROJECT HEADER */}
       <div className="mb-12 md:mb-16">
         <div className="flex flex-col gap-6">
-          <TransitionLink href="/selected_work" className="text-[12px] font-mono font-bold uppercase tracking-widest text-gray-500 hover:text-foreground transition-colors w-fit">
-            ← Back to Archive
-          </TransitionLink>
+          {/* <TransitionLink href="/selected_work" className="text-[12px] font-mono font-bold uppercase tracking-widest text-gray-500 hover:text-foreground transition-colors w-fit"> */}
+            <ScrambleLink
+                className="text-[12px] font-mono font-bold uppercase tracking-widest text-gray-500"
+                href="/selected_work"
+                text = "[ BACK_TO_SELECTED_WORK ]"
+            />
           <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-gray-500 block">
             {project.meta}
           </span>

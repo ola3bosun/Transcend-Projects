@@ -6,7 +6,7 @@ import { useGSAP } from "@gsap/react";
 import { useLiveTime } from "@/hooks/useLiveTime";
 import { TransitionLink } from "@/components/ui/TransitionLink";
 import ScrambleLink from "@/components/shared/ScrambleLink";
-import { useTheme } from "next-themes"; // Added theme hook
+import { useTheme } from "next-themes";
 
 export function Navbar() {
   const containerRef = useRef<HTMLElement>(null);
@@ -107,7 +107,6 @@ export function Navbar() {
       className="w-full uppercase tracking-widest font-mono text-sm relative z-50 transition-colors duration-300"
     >
       {/* --- TOP BAR --- */}
-      {/* Replaced bg-white and border-black with background/foreground variables */}
       <div className="flex justify-between items-center py-4 px-6 border-b border-foreground bg-background relative z-50">
         <div className="flex flex-col gap-1">
           <span className="font-bold system-text text-foreground">
@@ -159,14 +158,19 @@ export function Navbar() {
         <div className="text-foreground hidden md:flex items-center gap-4 system-text">
           {/* THEME TOGGLE BUTTON */}
           {mounted && (
-            <button 
+            <button
               onClick={toggleTheme}
-              className="text-[10px] font-bold tracking-widest hover:opacity-50 transition-opacity"
+              className="text-foreground desktop-nav-item group relative overflow-hidden block h-[1.2em] leading-[1.2em]"
+              type="button"
             >
-              [ {theme === 'dark' ? 'LIGHT' : 'DARK'} ]
+              <span className="block transition-transform duration-300 ease-out group-hover:-translate-y-full text-xs font-bold tracking-widest">
+                [ {theme === 'dark' ? 'LIGHT' : 'DARK'} ]
+              </span>
+              <span className="absolute inset-0 block translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0 text-xs font-bold tracking-widest">
+                [ {theme === 'dark' ? 'LIGHT' : 'DARK'} ]
+              </span>
             </button>
           )}
-
           <span className="text-foreground text-xs text-right">
             UTC: {currentTime}
           </span>
