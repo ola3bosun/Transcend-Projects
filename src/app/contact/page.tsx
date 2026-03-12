@@ -16,7 +16,7 @@ export default function ContactPage() {
 
       {/* 3-COLUMN GRID */}
       {/* The top border dynamically adapts to the theme */}
-      <div className="grid grid-cols-1 md:grid-cols-3 border-t border-foreground/20 pt-16 gap-16 md:gap-0">
+      <div className="grid grid-cols-1 md:grid-cols-3 border-t border-foreground/20 pt-16 pb-16 gap-16 md:gap-0">
         
         {/* COLUMN 1: INQUIRIES */}
         <div className="flex flex-col h-full md:pr-12">
@@ -46,9 +46,9 @@ export default function ContactPage() {
           </div>
 
           <div className="flex gap-6 font-bold uppercase mt-16 md:mt-auto font-mono text-sm text-foreground">
-            <a href="#" className="hover:opacity-50 transition-opacity">LN</a>
-            <a href="#" className="hover:opacity-50 transition-opacity">IG</a>
-            <a href="#" className="hover:opacity-50 transition-opacity">TW</a>
+            <a href="#" className="nav-link">LN</a>
+            <a href="#" className="nav-link">IG</a>
+            <a href="#" className="nav-link">TW</a>
           </div>
         </div>
 
@@ -127,7 +127,7 @@ export default function ContactPage() {
             {/* Submit Button */}
             <button 
               type="submit" 
-              className="group flex items-center gap-4 text-sm font-bold uppercase tracking-widest hover:opacity-50 transition-opacity mt-4 font-mono w-fit text-foreground"
+              className="group flex items-center gap-4 text-sm font-bold uppercase tracking-widest mt-4 font-mono w-fit text-foreground"
             >
               Submit
               <svg 
