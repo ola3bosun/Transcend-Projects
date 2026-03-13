@@ -65,7 +65,7 @@ export default function ContactPage() {
               <p className="text-gray-500 mb-1">1085, Victoria Island</p>
               <p className="text-gray-500 mb-4">Lagos, Nigeria</p>
               <p className="text-[10px] font-mono tracking-widest text-gray-400 uppercase">
-                6.4253° N, 3.4219° E
+                6.4253° N, 3.4217° E
               </p>
             </div>
             
