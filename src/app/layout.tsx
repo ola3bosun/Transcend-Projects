@@ -1,38 +1,27 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Space_Mono } from "next/font/google"; 
 import "./globals.css";
+
 import { Preloader } from "@/components/shared/Preloader";
 import { CustomCursor } from "@/components/shared/CustomCursor";
-import { ThemeProvider } from "@/components/shared/ThemeProvider";
-import { Navbar } from "@/components/shared/Navbar";
-import { Footer } from "@/components/shared/Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+const sans = Inter({ subsets: ["latin"], variable: "--font-geist-sans" });
+const mono = Space_Mono({ weight: ["400", "700"], subsets: ["latin"], variable: "--font-geist-mono" });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export const metadata: Metadata = {
-  title: "Transcend Projects",
-  description: "Structural Engineering for the Next Century.",
+export const metadata = {
+  title: "Transcend Projects | Command Center",
+  description: "Engineering the Future Built Environment.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}>
-        <ThemeProvider>
-          <Preloader />
-          <CustomCursor />
-          <Navbar />
-          <main className="flex-1 w-full pt-16">{children}</main>
-          <Footer id="global-footer" />
-        </ThemeProvider>
+      <body className={`${sans.variable} ${mono.variable} antialiased min-h-screen bg-background text-foreground`}>
+        <Preloader />
+        <CustomCursor />
+        
+        {/* The children will either be the 404 page, OR the (main) layout */}
+        {children}
+          
       </body>
     </html>
   );

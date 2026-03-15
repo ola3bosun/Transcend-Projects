@@ -3,31 +3,19 @@
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import dynamic from "next/dynamic";
 import { TransitionLink } from "@/components/ui/TransitionLink";
-import { FallingText } from "@/components/ui/FallingText";
-import  ScrambleLink  from "@/components/shared/ScrambleLink";
+import ScrambleLink from "@/components/shared/ScrambleLink";
+
+// The SSR Fix: Force the physics engine to strictly load in the browser
+// FUCK MATTER.JS
+const FallingText = dynamic(
+  () => import("@/components/ui/FallingText").then((mod) => mod.FallingText),
+  { ssr: false }
+);
 
 export default function NotFound() {
-    // hides the footer while this page is active
-  useEffect(() => {
-    const footer = document.getElementById("global-footer");
-    if (footer) footer.style.display = "none";
-    
-    // Cleanup: Bring it back when they click the button to go home
-    return () => {
-      if (footer) footer.style.display = "block";
-    };
-  }, []);
   const containerRef = useRef<HTMLDivElement>(null);
-
-  // CSS lock to hide the footer
-  useEffect(() => {
-    const footer = document.getElementById("global-footer");
-    if (footer) footer.style.display = "none";
-    return () => {
-      if (footer) footer.style.display = "block";
-    };
-  }, []);
 
   useGSAP(() => {
     const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
@@ -39,26 +27,27 @@ export default function NotFound() {
       
       {/* Top Header */}
       <div className="w-full flex justify-between items-start error-element border-b border-foreground/20 pb-4">
-        <span className="font-bold system-text text-foreground">
-          <ScrambleLink text="ERROR_CODE: 404" href="/" />
+        <span className="font-mono system-text text-gray-500">
+          <ScrambleLink text="[ ERROR_CODE: 404 ]" href="/" />
         </span>
        
         <TransitionLink
           href="/"
-          className="group relative inline-flex items-center gap-4 text-sm font-mono font-bold tracking-widest uppercase text-foreground"
+          className="group relative inline-flex items-center gap-4 text-sm font-mono font-bold tracking-widest uppercase text-foreground hover:opacity-50 transition-opacity"
         >
             <span>
-              <ScrambleLink text="[ INITIATE_RETURN_PROTOCOL ]" href="/" />
+              [ INITIATE_RETURN_PROTOCOL ]
             </span>
         </TransitionLink>
       </div>
 
       <div className="flex-1 w-full flex items-center justify-center -mt-10 error-element">
         <FallingText
-          text="You shouldn't be HERE. REQUESTED DOES NOT EXIST."
-          highlightWords={["ASSET", "NOT", "EXIST"]}
+          text="YOU SHOULDN'T BE HERE. REQUESTED ASSET DOES NOT EXIST."
+
+          highlightWords={["HERE.", "NOT", "EXIST."]}
           trigger="hover"
-          gravity={.98}
+          gravity={0.98}
         />
       </div>
 
