@@ -30,8 +30,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Preloader />
           <CustomCursor />
           <Navbar />
-          <main className="flex-1 w-full">{children}</main>
-          <Footer />
+          <main className="flex-1 w-full pt-16">{children}</main>
+          <Footer id="global-footer" />
         </ThemeProvider>
       </body>
     </html>

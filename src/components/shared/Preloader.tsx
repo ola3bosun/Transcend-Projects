@@ -36,7 +36,7 @@ export function Preloader() {
       }
     });
 
-    const progress = { value: 0 };
+    const progress = { value: Math.random() * 20 }; // Start with a random value between 0-20 for realism
 
     tl.to(progress, {
       value: 99,

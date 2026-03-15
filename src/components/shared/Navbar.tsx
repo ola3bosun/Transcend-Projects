@@ -104,10 +104,10 @@ export function Navbar() {
   return (
     <nav
       ref={containerRef}
-      className="w-full uppercase tracking-widest font-mono text-sm relative z-50 transition-colors duration-300"
+      className="w-full uppercase tracking-widest font-mono text-sm fixed top-0 z-50 bg-background"
     >
       {/* --- TOP BAR --- */}
-      <div className="flex justify-between items-center py-4 px-6 border-b border-foreground bg-background relative z-50">
+      <div className="flex justify-between items-center py-4 px-6 border-b border-foreground bg-background relative">
         <div className="flex flex-col gap-1">
           <span className="font-bold system-text text-foreground">
             <ScrambleLink text="Transcend Projects" href="/" />

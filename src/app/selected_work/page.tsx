@@ -3,7 +3,7 @@
 import { TransitionLink } from "@/components/ui/TransitionLink";
 import Image from "next/image";
 
-// 1. Project Data Structure (Ready for dynamic routing or CMS integration)
+// Project Data Structure (Ready for dynamic routing or CMS integration)
 const projects = [
   {
     id: "001",
