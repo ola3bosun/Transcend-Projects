@@ -7,7 +7,6 @@ export default function Home() {
     <div className="min-h-screen pt-16 pb-20 px-6 md:px-12 flex flex-col w-full max-w-[1600px] mx-auto transition-colors duration-300">
       
       {/* 1. HERO SECTION */}
-      {/* Wrapped in a master border box */}
       <div className="border border-foreground/20 grid grid-cols-1 lg:grid-cols-12 mb-12">
         
         {/* Left Column: Copy & Stats */}
